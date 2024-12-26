@@ -1,0 +1,36 @@
+React Component Lifecycle, Events, and Forms Assignment, Module 11 Lesson 3
+
+
+Part 1: 
+Mastering React Functional Components and Axios with useEffect
+
+Objective:
+The objective of this assignment is to develop proficiency in using React functional components, managing side effects with the 'useEffect' hook, and performing HTTP 
+requests using Axios. This hands-on exercise will enhance your skills in building dynamic, data-driven React applications.
+
+Problem Statement:
+Your task is to create a React application that interacts with the Marvel Comics API. The application should handle asynchronous operations such as fetching data, 
+processing requests, and updating the user interface dynamically using modern JavaScript features.
+
+Task 1: Sign Up for API Key:
+ - Go to the Marvel Developer website and sign up for an API key. 
+ - Use hash generator for MD5 hash to be used with the API keys.
+status: COMPLETE
+
+Task 2: Fetch and Display Characters
+ - Create a functional component 'CharacterList' to display a list of Marvel Comics Characters.
+ - Use 'useEffect' hook to fetch character data from the Marvel Comics API using Axios.
+ - Display each character's name and thumbnail image in a grid format.
+status: incomplete
+
+Task 3: Implement the Character Detail Feature
+ - Create a functional component 'CharacterDetail' to display the detailed information about a selected character.
+ - Implement a click event handler to fetch additional character details asynchronously when a character thumbnail is clicked.
+ - Use Axios to send a GET request to the Marvel Comics API.
+ - Display the character's name, description, and a list of associated comics.
+status: incomplete
+
+Task 4: Integrating Components and Updating the User interface
+ - In the main 'App' component, integrate 'CharacterList' and 'CharacterDetail'.
+ - Ensure that the character detail view updates dynamically when a character thumbnail is clicked.
+status: incomplete

@@ -3,15 +3,11 @@
 //  - Use 'useEffect' hook to fetch character data from the Marvel Comics API using Axios.
 //  - Display each character's name and thumbnail image in a grid format.
 
-
-
-// API Endpoint = `https://gateway.marvel.com/v1/publts=1$apikey=${McApiPubKey}&hash=${McApiHash}`
-
-// Import
-import { useEffect, useState } from "react";
+import { handleCharacterClick } from './CharacterHandler';
+import CharacterDetail from './CharacterDetail';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Create Functional Component 'CharacterList'
 const CharacterList = () => {
     const [characters, setCharacters] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -27,7 +23,7 @@ const CharacterList = () => {
                 if (!response) {
                     throw new Error(`HTTP error! status: ${response.status}`)
                 }
-                const characterData = await response.json;
+                const characterData = await response.data.data.results;
                 setCharacters(characterData); 
             } catch (error) {
                 setError(error);
@@ -49,22 +45,25 @@ const CharacterList = () => {
     if (!Array.isArray(characters)) {
         return <div>Error: Characters data is not an array</div>
     }
-
-    // Display each character's name and thumbnail image in a grid format
     return (
-        <div>
-            <h1>Marvel Comics Characters</h1>
-            <div className="grid-container">
-                {characters.map(character => (
-                    <div key={character.id} className="grid-item">
-                        {character.name}
-                        <img src={character.thumbnail?.path + '.' + character.thumbnail?.extension} alt={character.name} />
-                    </div>
-                ))}
-            </div>
+        <>
+        <div className="grid-container">
+            {characters.map(character => (
+                <div key={character.id} className="grid-item">
+                    <h3>{character.name}</h3>
+                    <img
+                        src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                        onClick={() => handleCharacterClick(character.id)}
+                        width={250}
+                        height={250}
+                        alt={character.name}
+                        onError={(e) => { e.target.src = "placeholder-image.jpg"; }}
+                    />
+                </div>
+            ))}
         </div>
-    )
-}
-
-// Export
+        <CharacterDetail/>
+        </>
+    );
+};
 export default CharacterList;

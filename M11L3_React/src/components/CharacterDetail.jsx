@@ -1,15 +1,31 @@
-// Task 3: Implement the Character Detail Feature
-//  - Create a functional component 'CharacterDetail' to display the detailed information about a selected character.
-//  - Implement a click event handler to fetch additional character details asynchronously when a character thumbnail is clicked.
-//  - Use Axios to send a GET request to the Marvel Comics API.
-//  - Display the character's name, description, and a list of associated comics.
-
-// API Endpoint = `https://gateway.marvel.com/v1/publts=1$apikey=${McApiPubKey}&hash=${McApiHash}`
-
-// Import
 
 
-// Create Functional Component 'CharacterDetail'
+export default async function CharacterDetail(characterId) {
+    let characterName;
+    let characterDescription;
+    let characterComics = [];
 
-
-// Export
+    try {
+        const response = await axios.get(`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=${McApiPubKey}&hash=${McApiHash}`);
+        const characterData = await response.data.data.results;
+        for (let character in characterData) {
+            if (character.id == characterId) {
+                characterName = characterData.name;
+                characterDescription = characterData.description;
+                characterComics.push(characterData.comics);
+            }
+        } 
+    } catch (error) {
+        console.log(error);
+    }
+    return (
+        <div className="character-details">
+            <h3>{characterName}</h3>
+            <p>{characterDescription || "No description available."}</p>
+            <p>
+                <strong>Comics:</strong>{" "}
+                {characterComics}
+            </p>
+        </div>
+    );
+};

@@ -4,39 +4,25 @@
 //  - Use Axios to send a GET request to the Marvel Comics API.
 //  - Display the character's name, description, and a list of associated comics.
 
-import { useState } from 'react';
 
-const CharacterDetail = async (characterId) => {
-    const [error, setError] = useState(null);
-    const [character, setCharacter] = useState({});
+import React from 'react';
 
-    try {
-        const response = await axios.get(`https://gateway.marvel.com/v1/public/characters/${characterId}?ts=1&apikey=${McApiPubKey}&hash=${McApiHash}`);
-        const characterData = await response.data.data.results;
-        setCharacter(characterData);
-        console.log(characterData);
-    } catch (error) {
-        setError(error);
-    }
-    
-
-    if (error) {
-        return <div>Error: {error.message}</div>;
-    }
-
-    if (!character) {
-        return <div>Select a character to view details.</div>;
-    }
-
-    return (
-        <div className="character-details">
-            <h3>{character.name}</h3>
-            <p>{character.description || "No description available."}</p>
-            <p>
-                <strong>Comics:</strong>{" "}
-                {character.comics.items.map(comic => comic.name).join(", ")}
-            </p>
-        </div>
-    );
+const CharacterDetail = ({ character }) => {
+    const comics = character.comics.items;
+    const description = character.description;
+  return (
+    <div className="character-detail">
+        <h2>{character.name}</h2>
+        <p><strong>Description:</strong> {description}</p>
+        <p><strong>Comics:</strong></p>
+        {comics.map((i, comic) => {
+            <ul>
+                <li>{i+1}: {comic.name}</li>
+            </ul>
+        })}
+        
+    </div>
+  );
 };
+
 export default CharacterDetail;

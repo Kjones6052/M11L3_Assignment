@@ -9,6 +9,7 @@ import CharacterDetail from './CharacterDetail';
 
 const CharacterList = () => {
     const [characters, setCharacters] = useState([]);
+    const [selectedCharacter, setSelectedCharacter] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const McApiHash = "a783b08900da50084275249ef1c72bc7";
@@ -33,9 +34,9 @@ const CharacterList = () => {
         fetchCharacterData();
     }, []);
 
-    function handleCharacterClick(id) {
-        CharacterDetail(id);
-    }
+    const handleCharacterClick = (character) => {
+        setSelectedCharacter(character);
+      };
 
     if (loading) {
         return <div>Loading characters...</div>
@@ -49,25 +50,27 @@ const CharacterList = () => {
         return <div>Error: Characters data is not an array</div>
     }
 
-    
-
     return (
-        <div className="grid-container">
-            {characters.map(character => (
-                <div key={character.id} className="grid-item">
-                    <h3>{character.name}</h3>
-                    <img
-                        src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                        onClick={() => handleCharacterClick(character.id)}
-                        width={250}
-                        height={250}
-                        alt={character.name}
-                        onError={(e) => { e.target.src = "placeholder-image.jpg"; }}
-                    />
-                </div>
+        <div>
+          <div className="grid-container">
+            {characters.map((character) => (
+              <div key={character.id} className="character-card" onClick={() => handleCharacterClick(character)}>
+                <img 
+                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`} 
+                    alt={character.name} 
+                    width={250}
+                    height={250}
+                />
+                <h3>{character.name}</h3>
+              </div>
             ))}
+          </div>
+    
+          {/* Conditionally render CharacterDetail when a character is selected */}
+          {selectedCharacter && <CharacterDetail character={selectedCharacter} />}
         </div>
-    );
+      );
+
 };
 
 export default CharacterList;

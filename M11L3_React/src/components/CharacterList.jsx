@@ -3,10 +3,9 @@
 //  - Use 'useEffect' hook to fetch character data from the Marvel Comics API using Axios.
 //  - Display each character's name and thumbnail image in a grid format.
 
-import { handleCharacterClick } from './CharacterHandler';
-import CharacterDetail from './CharacterDetail';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import CharacterDetail from './CharacterDetail';
 
 const CharacterList = () => {
     const [characters, setCharacters] = useState([]);
@@ -34,6 +33,10 @@ const CharacterList = () => {
         fetchCharacterData();
     }, []);
 
+    function handleCharacterClick(id) {
+        CharacterDetail(id);
+    }
+
     if (loading) {
         return <div>Loading characters...</div>
     }
@@ -45,8 +48,10 @@ const CharacterList = () => {
     if (!Array.isArray(characters)) {
         return <div>Error: Characters data is not an array</div>
     }
+
+    
+
     return (
-        <>
         <div className="grid-container">
             {characters.map(character => (
                 <div key={character.id} className="grid-item">
@@ -62,8 +67,7 @@ const CharacterList = () => {
                 </div>
             ))}
         </div>
-        <CharacterDetail/>
-        </>
     );
 };
+
 export default CharacterList;

@@ -21,7 +21,7 @@ Task 2: Fetch and Display Characters
  - Create a functional component 'CharacterList' to display a list of Marvel Comics Characters.
  - Use 'useEffect' hook to fetch character data from the Marvel Comics API using Axios.
  - Display each character's name and thumbnail image in a grid format.
-status: incomplete
+status: COMPLETE
 
 Task 3: Implement the Character Detail Feature
  - Create a functional component 'CharacterDetail' to display the detailed information about a selected character.
